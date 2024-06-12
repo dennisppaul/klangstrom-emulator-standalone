@@ -10,7 +10,7 @@ set(KLST_ENV 0x46)                                                  # set KLST e
 ### 1. set compiler flags                              ###
 ##########################################################
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/CMakeCompilerFlags.cmake)
+include(${LIBRARY_PATH}/CMakeCompilerFlags.cmake)
 
 ##########################################################
 ### 2. add source + header files from this directory   ###
@@ -24,4 +24,28 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 ### 3. add libraries                                   ###
 ##########################################################
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/CMakeLibrariesConfig.cmake)
+include(${LIBRARY_PATH}/CMakeLibrariesConfig.cmake)
+
+##########################################################
+### 4. add custom target to run + clean application    ###
+### ( OPTIONAL )                                       ###
+##########################################################
+
+add_custom_target(run
+    DEPENDS ${PROJECT_NAME}
+    COMMENT "Building and running ${PROJECT_NAME}..."
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}
+)
+
+add_custom_target(clean
+    COMMENT "Cleaning ${PROJECT_NAME}..."
+    COMMAND rm -rf ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+##########################################################
+### some example commands                              ###
+##########################################################
+
+# configure: cmake -B build
+# built    : cmake --build build
+# run      : cmake --build build --target run
