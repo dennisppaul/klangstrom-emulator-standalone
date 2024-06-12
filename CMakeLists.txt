@@ -27,7 +27,7 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 include(${LIBRARY_PATH}/CMakeLibrariesConfig.cmake)
 
 ##########################################################
-### 4. add custom target to run + clean application    ###
+### 4. add custom target to run application            ###
 ### ( OPTIONAL )                                       ###
 ##########################################################
 
@@ -37,15 +37,12 @@ add_custom_target(run
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}
 )
 
-add_custom_target(clean
-    COMMENT "Cleaning ${PROJECT_NAME}..."
-    COMMAND rm -rf ${CMAKE_CURRENT_BINARY_DIR}
-)
 
 ##########################################################
-### some example commands                              ###
+### some helpful commands                              ###
 ##########################################################
 
 # configure: cmake -B build
 # built    : cmake --build build
 # run      : cmake --build build --target run
+# clean    : rm -r build

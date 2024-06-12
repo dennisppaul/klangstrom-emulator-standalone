@@ -41,7 +41,6 @@ void setup() {
 
     console.timestamp();
     console.println("finished setup");
-    console.println("");
     console.println("---------------------------------------------------------");
 
     audiocodec.start();
