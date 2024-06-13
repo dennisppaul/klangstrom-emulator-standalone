@@ -17,7 +17,7 @@ include(${LIBRARY_PATH}/CMakeCompilerFlags.cmake)
 ##########################################################
 
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 ##########################################################
@@ -36,7 +36,6 @@ add_custom_target(run
     COMMENT "Building and running ${PROJECT_NAME}..."
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}
 )
-
 
 ##########################################################
 ### some helpful commands                              ###
