@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.12)
 project(klangstrom-emulator-standalone)                             # set application name
 set(LIBRARY_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries")           # set path to libraries
 set(KLST_ENV 0x46)                                                  # set KLST environment 
-                                                                    #  0x46=KLST_PANDA_EMU
-                                                                    #  0x47=KLST_CATERPILLAR_EMU
+                                                                    #     0x46=KLST_PANDA_EMU
+                                                                    #     0x47=KLST_CATERPILLAR_EMU
 
 ##########################################################
 ### 1. set compiler flags                              ###
