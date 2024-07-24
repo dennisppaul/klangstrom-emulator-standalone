@@ -20,7 +20,12 @@ add_subdirectory(${LIBRARY_PATH}/klangstrom-emulator ${CMAKE_BINARY_DIR}/klangst
 add_subdirectory(${LIBRARY_PATH}/klangstrom-libraries/Klangstrom ${CMAKE_BINARY_DIR}/klangstrom-lib-${PROJECT_NAME})
 add_subdirectory(${LIBRARY_PATH}/klangstrom-libraries/Klangstrom_KLST_EMU ${CMAKE_BINARY_DIR}/klangstrom_KLST_EMU-lib-${PROJECT_NAME})
 
+# make `klangstrom_KLST_EMU` headers available to `klangstrom`
 get_target_property(KLANGSTROM_EMU_INCLUDE_DIRS klangstrom_KLST_EMU INTERFACE_INCLUDE_DIRECTORIES)
 target_include_directories(klangstrom PUBLIC ${KLANGSTROM_EMU_INCLUDE_DIRS})
+
+# make `klangstrom` headers available to `klangstrom-emulator`
+get_target_property(KLANGSTROM_INCLUDE_DIRS klangstrom INTERFACE_INCLUDE_DIRECTORIES)
+target_include_directories(klangstrom-emulator PUBLIC ${KLANGSTROM_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE klangwellen klangstrom-emulator klangstrom_KLST_EMU klangstrom)

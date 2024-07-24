@@ -1,5 +1,5 @@
 #define KLANG_SAMPLES_PER_AUDIO_BLOCK 2048
-#define KLANG_SAMPLING_RATE           48000
+#define KLANG_SAMPLE_RATE             48000
 
 #include "Arduino.h"
 #include "Klangstrom.h"
@@ -8,14 +8,15 @@
 #include "KlangstromLEDs.h"
 #include "Wavetable.h"
 
-SerialDebug console;
 Klangstrom  klangstrom;
+SerialDebug console;
+AudioInfo   audioinfo;
 AudioCodec  audiocodec;
 LEDs        leds;
 uint8_t     fLEDIntensity = 0;
 
 float                  wavetable[512];
-klangwellen::Wavetable oscillator{wavetable, 512, 48000};
+klangwellen::Wavetable oscillator{wavetable, 512, audioinfo.sample_rate};
 
 void setup() {
     /* init section */
@@ -24,7 +25,9 @@ void setup() {
     console.info();
     console.timestamp();
     console.println("starting init");
-    audiocodec.init();
+    audiocodec.init(&audioinfo);
+//    audiocodec.init(48000, 2, 1, 128, 16);
+//    audiocodec.init(sample_rate, output_channels, input_channels, block_size, bit_depth);
     leds.init(); // TODO interferes with audiocodec
 
     console.timestamp();
@@ -56,10 +59,9 @@ void loop() {
     delay(1000);
 }
 
-void audioblock(float** input_signal, float** output_signal, uint16_t length) {
-    (void) input_signal;
-    for (int i = 0; i < length; ++i) {
-        output_signal[0][i] = oscillator.process();
-        output_signal[1][i] = output_signal[0][i];
+void audioblock(AudioBlock* audio_block) {
+    for (int i = 0; i < audio_block->block_size; ++i) {
+        audio_block->output[0][i] = oscillator.process();
+        audio_block->output[1][i] = audio_block->output[0][i];
     }
 }
