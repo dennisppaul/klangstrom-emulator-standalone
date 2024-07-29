@@ -1,5 +1,5 @@
-#define KLANG_SAMPLES_PER_AUDIO_BLOCK 2048
-#define KLANG_SAMPLE_RATE             48000
+//#define KLANG_SAMPLES_PER_AUDIO_BLOCK 2048
+//#define KLANG_SAMPLE_RATE             48000
 
 #include "Arduino.h"
 #include "Klangstrom.h"
@@ -26,8 +26,8 @@ void setup() {
     console.timestamp();
     console.println("starting init");
     audiocodec.init(&audioinfo);
-//    audiocodec.init(48000, 2, 1, 128, 16);
-//    audiocodec.init(sample_rate, output_channels, input_channels, block_size, bit_depth);
+    //    audiocodec.init(48000, 2, 1, 128, 16);
+    //    audiocodec.init(sample_rate, output_channels, input_channels, block_size, bit_depth);
     leds.init(); // TODO interferes with audiocodec
 
     console.timestamp();
