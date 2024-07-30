@@ -6,6 +6,9 @@ set(KLST_ENV 0x46)                                                  # set KLST e
                                                                     #     0x46=KLST_PANDA_EMU
                                                                     #     0x47=KLST_CATERPILLAR_EMU
 
+#set(SOURCE_FILES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(SOURCE_FILES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libraries/klangstrom-libraries/Klangstrom/examples/Test") # for development purposes
+
 ##########################################################
 ### 1. set compiler flags                              ###
 ##########################################################
@@ -16,8 +19,19 @@ include(${LIBRARY_PATH}/CMakeCompilerFlags.cmake)
 ### 2. add source + header files from this directory   ###
 ##########################################################
 
-file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
+include_directories("${SOURCE_FILES_DIR}")
+file(GLOB SOURCE_FILES
+        "${SOURCE_FILES_DIR}/*.c"
+        "${SOURCE_FILES_DIR}/*.cpp"
+        "${SOURCE_FILES_DIR}/*.ino"
+)
+set_source_files_properties(${SOURCE_FILES} PROPERTIES LANGUAGE CXX)
+foreach(ino_file ${SOURCE_FILES})
+    if (ino_file MATCHES "\\.ino$")
+        set_source_files_properties(${SOURCE_FILES} PROPERTIES COMPILE_FLAGS "-x c++")
+    endif()
+endforeach()
+
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 ##########################################################

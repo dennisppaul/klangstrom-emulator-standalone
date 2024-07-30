@@ -1,6 +1,3 @@
-//#define KLANG_SAMPLES_PER_AUDIO_BLOCK 2048
-//#define KLANG_SAMPLE_RATE             48000
-
 #include "Arduino.h"
 #include "Klangstrom.h"
 #include "KlangstromAudioCodec.h"
@@ -25,9 +22,8 @@ void setup() {
     console.info();
     console.timestamp();
     console.println("starting init");
+    audioinfo.device_type = AUDIO_DEVICE_KLST_PANDA_AUDIO_CODEC;
     audiocodec.init(&audioinfo);
-    //    audiocodec.init(48000, 2, 1, 128, 16);
-    //    audiocodec.init(sample_rate, output_channels, input_channels, block_size, bit_depth);
     leds.init(); // TODO interferes with audiocodec
 
     console.timestamp();
@@ -60,8 +56,12 @@ void loop() {
 }
 
 void audioblock(AudioBlock* audio_block) {
-    for (int i = 0; i < audio_block->block_size; ++i) {
-        audio_block->output[0][i] = oscillator.process();
-        audio_block->output[1][i] = audio_block->output[0][i];
+    if (audio_block->device_id == 0) {
+        for (int i = 0; i < audio_block->block_size; ++i) {
+            float mSample = oscillator.process();
+            for (int j = 0; j < audio_block->output_channels; ++j) {
+                audio_block->output[j][i] = mSample;
+            }
+        }
     }
 }
