@@ -7,7 +7,7 @@ set(KLST_ENV 0x46)                                                  # set KLST e
                                                                     #     0x47=KLST_CATERPILLAR_EMU
 
 #set(SOURCE_FILES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
-set(SOURCE_FILES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libraries/klangstrom-libraries/Klangstrom/examples/Test") # for development purposes
+set(SOURCE_FILES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libraries/klangstrom-libraries/Klangstrom/examples/AudioCodec") # for development purposes
 
 ##########################################################
 ### 1. set compiler flags                              ###
